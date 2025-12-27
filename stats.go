@@ -20,3 +20,19 @@ func countWords(text string) int {
 
 	return len(ss)
 }
+
+func countCharacters(text string) map[string]int {
+	characterCounts := make(map[string]int)
+
+	for _, c := range text {
+		lower := strings.ToLower(string(c))
+		if _, ok := characterCounts[lower]; !ok {
+			characterCounts[lower] = 1
+		} else {
+			characterCounts[lower] += 1
+		}
+
+	}
+
+	return characterCounts
+}
