@@ -8,13 +8,13 @@ import (
 func main() {
 	path := "books/frankenstein.txt"
 
-	text := get_book_text(path)
+	text := getBookText(path)
 
 	fmt.Println(text)
 
 }
 
-func get_book_text(path string) (text string) {
+func getBookText(path string) (text string) {
 
 	file, err := os.ReadFile(path)
 	if err != nil {
