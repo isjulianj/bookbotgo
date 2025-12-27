@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -10,7 +11,7 @@ func main() {
 
 	text := getBookText(path)
 
-	fmt.Println(text)
+	fmt.Println(countWords(text))
 
 }
 
@@ -22,4 +23,10 @@ func getBookText(path string) (text string) {
 	}
 	text = string(file)
 	return text
+}
+
+func countWords(text string) int {
+	ss := strings.Fields(text)
+
+	return len(ss)
 }
