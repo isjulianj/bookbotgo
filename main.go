@@ -9,10 +9,15 @@ func main() {
 
 	text := getBookText(path)
 
-	fmt.Println(countWords(text))
-	mappy := countCharacters(text)
+	charMap := countCharacters(text)
+	sortedInts := getSortedCharacters(charMap)
 
-	for key, value := range mappy {
-		fmt.Printf("%s : %d\n", key, value)
+	fmt.Println("============ BOOKBOT ============")
+	fmt.Println("Analyzing book found at books/frankenstein.txt...")
+	fmt.Println("----------- Word Count ----------")
+	fmt.Printf("Found %d total words", countWords(text))
+	for _, c := range sortedInts {
+		fmt.Printf("%s : %d\n", c.character, c.count)
 	}
+	fmt.Println("============= END ===============")
 }

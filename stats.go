@@ -2,7 +2,9 @@ package main
 
 import (
 	"os"
+	"sort"
 	"strings"
+	"unicode"
 )
 
 func getBookText(path string) (text string) {
@@ -21,8 +23,8 @@ func countWords(text string) int {
 	return len(ss)
 }
 
-func countCharacters(text string) map[string]int {
-	characterCounts := make(map[string]int)
+func countCharacters(text string) (characterCounts map[string]int) {
+	characterCounts = make(map[string]int)
 
 	for _, c := range text {
 		lower := strings.ToLower(string(c))
@@ -31,8 +33,33 @@ func countCharacters(text string) map[string]int {
 		} else {
 			characterCounts[lower] += 1
 		}
+	}
+	return
+}
 
+type characterCount struct {
+	character string
+	count     int
+}
+
+func getSortedCharacters(characterCountMap map[string]int) []characterCount {
+	list := make([]characterCount, 0, len(characterCountMap))
+
+	for key, value := range characterCountMap {
+		if isLetter(key) {
+			list = append(list, characterCount{character: key, count: value})
+		}
 	}
 
-	return characterCounts
+	sort.Slice(list, func(i, j int) bool {
+		return list[i].count > list[j].count
+	})
+
+	return list
+}
+
+func isLetter(s string) bool {
+	return !strings.ContainsFunc(s, func(r rune) bool {
+		return !unicode.IsLetter(r)
+	})
 }
